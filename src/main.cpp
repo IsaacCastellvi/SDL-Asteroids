@@ -1,5 +1,7 @@
-
-#include <SDL2/SDL.h>  // or <SDL2/SDL.h> if using SDL2
+#include <SDL2/SDL.h>
+#include "InputManager.h"
+#include "SDLmath.h"
+#include <iostream>
 
 int main(int argc, char* argv[]) {
     // Initialize SDL
@@ -11,8 +13,8 @@ int main(int argc, char* argv[]) {
     // Create window
     SDL_Window* window = SDL_CreateWindow(
         "Asteroids",   // title
-        800, 600,
-        300,300,
+        1200,1200,
+        1000,1000,
         0              // flags
     );
 
@@ -36,17 +38,17 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event event;
 
+    Vector2 vector(3,3);
+
     while (running) {
-        // Handle events
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDLK_ESCAPE) running = false;
-            if (event.type == SDLK_DOWN)
-                if (event.key.type == SDLK_ESCAPE) running = false;
-            if (event.type == SDL_QUIT){
-                SDL_Quit();
-            }
-            
+        IM.Listen();
+
+        if (IM.GetLeftClick()){
+            SDL_Quit();   
         }
+        
+        std::cout << vector.getX() << vector.getY();
+
 
         // Clear screen (black)
         SDL_SetRenderDrawColor(renderer, 125, 180, 125, 255);
