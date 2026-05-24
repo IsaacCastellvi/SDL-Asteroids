@@ -2,66 +2,41 @@
 #include "InputManager.h"
 #include "SDLmath.h"
 #include <iostream>
+#include "ship.h"
+#include "game.h"
+#include "SceneManager.h"
+#include "scene.h"
+
+#include "GameScene.h"
+
 
 int main(int argc, char* argv[]) {
-    // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
-        return 1;
-    }
+    if (!GAME.Init("Asteroids", 1000, 1000))
+        return 1; 
+    //SCENES.AddScene<MenuScene>(SceneIndex::GameScene);
+    SCENES.AddScene<GameScene>(SceneIndex::GAME_SCENE);
 
-    // Create window
-    SDL_Window* window = SDL_CreateWindow(
-        "Asteroids",   // title
-        1200,1200,
-        1000,1000,
-        0              // flags
-    );
+    SCENES.TransitionScene(SceneIndex::GAME_SCENE);
 
-    if (!window) {
-        SDL_Log("Failed to create window: %s", SDL_GetError());
-        SDL_Quit();
-        return 1;
-    }
+    ship sp;
+    Uint32 lastTime = SDL_GetTicks();
+    while (!IM.GetQuit()) {
 
-    // Create renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, 0,SDL_RENDERER_TARGETTEXTURE);
+        //delta calcs from stackoverflow
+        Uint32 now = SDL_GetTicks();
+        float deltaTime = (now - lastTime) / 1000.0f;
+        lastTime = now;
 
-    if (!renderer) {
-        SDL_Log("Failed to create renderer: %s", SDL_GetError());
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
-
-    // Main loop
-    bool running = true;
-    SDL_Event event;
-
-    Vector2 vector(3,3);
-
-    while (running) {
         IM.Listen();
 
-        if (IM.GetLeftClick()){
-            SDL_Quit();   
-        }
-        
-        std::cout << vector.getX() << vector.getY();
+        SCENES.UpdateScene(deltaTime);
 
+        SDL_RenderClear(GAME.GetRenderer());
+        SCENES.RenderScene();
 
-        // Clear screen (black)
-        SDL_SetRenderDrawColor(renderer, 125, 180, 125, 255);
-        SDL_RenderClear(renderer);
-
-        // Present
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(GAME.GetRenderer());
     }
 
-    // Cleanup
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-
+    GAME.Shutdown();
     return 0;
 }
