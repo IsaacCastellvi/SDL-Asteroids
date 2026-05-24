@@ -33,6 +33,11 @@ public:
     void RenderScene(){
         scenes[currentIndex]->Render();
     }
+    
+    scene* GetCurrentScene() { 
+        if (currentIndex == -1) return nullptr;
+        return scenes[currentIndex]; 
+    }
 
 
 private:

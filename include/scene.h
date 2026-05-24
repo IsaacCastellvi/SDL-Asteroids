@@ -17,7 +17,7 @@ public:
 
     template<typename T, typename... Args>
     //multiple args source https://stackoverflow.com/questions/19923353/multiple-typename-arguments-in-c-template-variadic-templates
-    void AddObject(Args&... args) {
+    void AddObject(Args&&... args) {
         static_assert(std::is_base_of<gameObject, T>::value, "T must inherit from gameObject");
         SceneObjects.push_back(new T(std::forward<Args>(args)...));
     }

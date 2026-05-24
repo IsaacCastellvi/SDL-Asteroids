@@ -18,22 +18,22 @@ int main(int argc, char* argv[]) {
 
     SCENES.TransitionScene(SceneIndex::GAME_SCENE);
 
-    ship sp;
+    //ship sp;
     Uint32 lastTime = SDL_GetTicks();
     while (!IM.GetQuit()) {
 
         //delta calcs from stackoverflow
         Uint32 now = SDL_GetTicks();
-        float deltaTime = (now - lastTime) / 1000.0f;
+        float deltaTime = (float)(now - lastTime) / 1000.0f;
         lastTime = now;
 
         IM.Listen();
 
         SCENES.UpdateScene(deltaTime);
 
+        SDL_SetRenderDrawColor(GAME.GetRenderer(), 0, 0, 0, 255);
         SDL_RenderClear(GAME.GetRenderer());
         SCENES.RenderScene();
-
         SDL_RenderPresent(GAME.GetRenderer());
     }
 

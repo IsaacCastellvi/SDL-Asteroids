@@ -12,5 +12,6 @@ public:
 
 private:
     float angle = 0.0f;
-    float rotationSpeed = 180.0f;
+    float rotationSpeed = 50.0f;
+    float thrustSpeed = 80.0f;
 };
