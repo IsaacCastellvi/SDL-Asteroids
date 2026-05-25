@@ -32,8 +32,23 @@ public:
     virtual void Render() = 0;
     virtual void Update(float deltaTime) = 0;
 
+    int GetRadius() const {return radius;}
     Vector2 position;
     SDL_Texture* texture = nullptr;
+    bool IsActive() { return active; }
+    void SetActive(bool val) { active = val; }
+
+    bool CollidesWith(gameObject* other) {
+        float dx = position.getX() - other->position.getX();
+        float dy = position.getY() - other->position.getY();
+        float dist = sqrt(dx*dx + dy*dy);
+        return dist < (radius + other->radius);
+    }
+
+protected:
+    //good for this type of game
+    int radius = 50;
+    bool active = true;
 
     //gameObject();
 };

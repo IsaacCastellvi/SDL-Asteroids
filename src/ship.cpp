@@ -7,6 +7,7 @@
 ship::ship() {
     texture = IMG_LoadTexture(GAME.GetRenderer(), "assets/ship.png");
     position = { 400, 300 };
+    
 }
 
 void ship::Update(float delta) {
@@ -35,6 +36,7 @@ void ship::Update(float delta) {
         if (SCENES.GetCurrentScene() == nullptr){SDL_Log(0);  SDL_Quit();}        
         SCENES.GetCurrentScene()->AddObject<bullet>(spawnPos, angle);
     }
+    
 
 
 

@@ -10,6 +10,7 @@ public:
 	void Update(float delta) override;
 	void Render() override;
 	void Clear() override;
+	int score;
 };
 
 

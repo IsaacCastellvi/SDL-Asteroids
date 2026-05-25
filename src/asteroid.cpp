@@ -19,21 +19,19 @@ void asteroid::InitBySize() {
     switch (size) {
         case LARGE:
             points = 20;
-            radius = 60;
+            radius = 64;
             break;
         case MEDIUM:
             points = 30;
-            radius = 35;
+            radius = 32;
             break;
         case SMALL:
             points = 50;
-            radius = 18;
+            radius = 16;
             break;
     }
 }
-
 Vector2 asteroid::RandomEdgeSpawn() {
-
     //hardcoded
     int screenW = 1000;
     int screenH = 1000;
@@ -83,3 +81,10 @@ void asteroid::Render() {
         );
     }
 }
+
+void asteroid::Hit(){
+
+
+
+}
+
