@@ -14,6 +14,18 @@ asteroid::asteroid(AsteroidSize size) : size(size) {
 
     rotationSpeed = 20.0f + rand() % 60;
 }
+asteroid::asteroid(AsteroidSize size,Vector2 pos) : size(size) {
+    InitBySize();
+
+    position = pos;
+    // Random direction toward center
+    float angle = ((rand() % 360) * M_PI / 180.0f);
+    float speed = 50.0f + rand() % 100;
+    velocity.setX(cos(angle) * speed);
+    velocity.setY(sin(angle) * speed);
+
+    rotationSpeed = 20.0f + rand() % 60;
+}
 //migth refactor
 void asteroid::InitBySize() {
     switch (size) {
@@ -88,3 +100,8 @@ void asteroid::Hit(){
 
 }
 
+asteroid::~asteroid(){
+    
+
+
+}

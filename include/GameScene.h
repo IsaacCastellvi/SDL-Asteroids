@@ -1,5 +1,6 @@
 #pragma once
 #include "scene.h"
+#include <SDL2/SDL_ttf.h>
 
 class GameScene : public scene
 {
@@ -11,6 +12,7 @@ public:
 	void Render() override;
 	void Clear() override;
 	int score;
+	TTF_Font* font = nullptr;
 };
 
 

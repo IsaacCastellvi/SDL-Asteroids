@@ -7,13 +7,16 @@ enum AsteroidSize { LARGE, MEDIUM, SMALL };
 class asteroid : public gameObject {
 public:
     asteroid(AsteroidSize size);
+    asteroid(AsteroidSize size,Vector2 pos);
     void Update(float delta) override;
     void Render() override;
     void Hit();
 
     int GetPoints() const { return points; }
     AsteroidSize GetSize() const { return size; }
-    
+
+    ~asteroid();
+
 private:
     AsteroidSize size;
     Vector2 velocity;

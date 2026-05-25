@@ -1,8 +1,10 @@
 #pragma once
-#include <SDL2/SDL.h>
 #include <vector>
 #include "scene.h"
 #include "GameScene.h"
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 //cant autocomplete static properties on other files idk why
 #define GAME Game::Instance()
 
@@ -33,6 +35,8 @@ public:
         height = h;
 
         SDL_Init(SDL_INIT_VIDEO);
+        IMG_Init(IMG_INIT_PNG);
+        TTF_Init(); 
 
         window = SDL_CreateWindow(title,
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -44,6 +48,7 @@ public:
     }
 
     void Shutdown() {
+        TTF_Quit();
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         //i think it wont terminate the full proces
