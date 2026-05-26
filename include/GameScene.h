@@ -13,6 +13,7 @@ public:
 	void Clear() override;
 	int score;
 	TTF_Font* font = nullptr;
+
 };
 
 

@@ -22,7 +22,7 @@ public:
     }
     void TransitionScene(SceneIndex indx){
         if (scenes[currentIndex] != nullptr) scenes[currentIndex]->Clear();
-        currentIndex = indx;
+        if (scenes[indx] != nullptr)currentIndex = indx;
         scenes[currentIndex]->Start();
 
     }

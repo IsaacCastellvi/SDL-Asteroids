@@ -5,6 +5,7 @@
 #include "bullet.h"
 #include <iostream>
 #include <SDL2/SDL_ttf.h>
+#include "SceneManager.h"
 
 void GameScene::Start(){
     srand(time(nullptr)); 
@@ -60,10 +61,22 @@ void GameScene::Update(float delta){
             if (!a || !a->IsActive()) continue;
 
             if (s->CollidesWith(a)) {
+                s->lives--;
+                //seg error even tho it exits?? Fix Change scene in the end of uddate will iterate deleted memory if not
+                if (s->lives <= 0 ) {        
+                    pendingTransition = true;
+                    pendingScene = SceneIndex::MENU_SCENE;
+                }
+
+                
                 SDL_Log("Ship hit!");
                 
             }
         }
+    }
+    if (pendingTransition) {
+        pendingTransition = false;
+        SCENES.TransitionScene(pendingScene);
     }
 }
 

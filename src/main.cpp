@@ -6,17 +6,17 @@
 #include "game.h"
 #include "SceneManager.h"
 #include "scene.h"
-
+#include "MenuScene.h"
 #include "GameScene.h"
 
 
 int main(int argc, char* argv[]) {
     if (!GAME.Init("Asteroids", 1000, 1000))
         return 1; 
-    //SCENES.AddScene<MenuScene>(SceneIndex::GameScene);
+    SCENES.AddScene<MenuScene>(SceneIndex::MENU_SCENE);
     SCENES.AddScene<GameScene>(SceneIndex::GAME_SCENE);
 
-    SCENES.TransitionScene(SceneIndex::GAME_SCENE);
+    SCENES.TransitionScene(SceneIndex::MENU_SCENE);
 
     //ship sp;
     Uint32 lastTime = SDL_GetTicks();

@@ -15,6 +15,10 @@ private:
     
 public:
 
+
+    SceneIndex pendingScene;
+    bool pendingTransition;
+
     template<typename T, typename... Args>
     //multiple args source https://stackoverflow.com/questions/19923353/multiple-typename-arguments-in-c-template-variadic-templates
     void AddObject(Args&&... args) {
