@@ -1,0 +1,3 @@
+/home/isi/Documents/GitHub/SDL-Asteroids/build/CMakeFiles/Asteroids.dir
+/home/isi/Documents/GitHub/SDL-Asteroids/build/CMakeFiles/edit_cache.dir
+/home/isi/Documents/GitHub/SDL-Asteroids/build/CMakeFiles/rebuild_cache.dir
