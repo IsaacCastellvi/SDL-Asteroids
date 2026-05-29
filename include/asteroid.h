@@ -23,6 +23,7 @@ private:
     float rotationAngle = 0.0f;
     float rotationSpeed;
     int points;
+    SDL_Rect src; 
 
     void InitBySize();
     Vector2 RandomEdgeSpawn();
