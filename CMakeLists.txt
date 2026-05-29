@@ -34,9 +34,22 @@ add_custom_command(TARGET Asteroids POST_BUILD
     ${CMAKE_BINARY_DIR}/assets
 )
 
+#wont work );
+# Windows: copy SDL DLLs beside executable
 if(WIN32)
-    target_link_libraries(Asteroids SDL2main)
+    add_custom_command(TARGET Asteroids POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_RUNTIME_DLLS:Asteroids>
+        $<TARGET_FILE_DIR:Asteroids>
+        COMMAND_EXPAND_LISTS
+    )
 endif()
+
+# Debug symbols only for GCC/Clang
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(Asteroids PRIVATE -g)
+endif()
+
 
 #temp
 target_compile_options(Asteroids PRIVATE -g)
