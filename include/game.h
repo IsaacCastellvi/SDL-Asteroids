@@ -5,6 +5,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <fstream>
+
 //cant autocomplete static properties on other files idk why
 #define GAME Game::Instance()
 
@@ -27,6 +29,17 @@ public:
     SDL_Window*   GetWindow()   { return window; }
     int GetWidth()  { return width; }
     int GetHeight() { return height; }
+
+    void SafeScore(int score){
+        std::ofstream file("assets/data/Highscores.csv");
+
+        std::string str;
+        if (file.is_open())
+        {
+            file << "name," << std::to_string(score);
+        }
+        
+    }
 
     bool Init(const char* title, int w, int h) {    
         //GameScenes[SceneIndex::GameScene] = new GameScene();

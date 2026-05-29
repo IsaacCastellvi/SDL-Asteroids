@@ -14,7 +14,6 @@ void GameScene::Start(){
     {
         std::cout << "blyat";
     }
-    
     AddObject<ship>();
 
     for (int i = 0; i < 3; i++) AddObject<asteroid>(LARGE);
@@ -23,6 +22,20 @@ void GameScene::Start(){
 }
 
 void GameScene::Update(float delta){
+
+    asteroidSpawnTimer += delta;
+
+    // spawn every 3 seconds
+    if (asteroidSpawnTimer >= spawnAsteroidTime)
+    {
+        asteroidSpawnTimer = 0.0f;
+        for (size_t i = 0; i < spawnAmountForIteration; i++)
+        {
+            AddObject<asteroid>(LARGE);
+        }
+    }
+
+
     size_t count = SceneObjects.size();
     for (size_t i = 0; i < count; i++) {
         if(SceneObjects[i]->IsActive())SceneObjects[i]->Update(delta);
@@ -62,15 +75,19 @@ void GameScene::Update(float delta){
 
             if (s->CollidesWith(a)) {
                 s->lives--;
+                if (a->GetSize() == AsteroidSize::LARGE)
+                {
+                    for (size_t i = 0; i < 2; i++){AddObject<asteroid>(MEDIUM,a->position);}
+                }
+                a->SetActive(false);
                 //seg error even tho it exits?? Fix Change scene in the end of uddate will iterate deleted memory if not
                 if (s->lives <= 0 ) {        
                     pendingTransition = true;
-                    pendingScene = SceneIndex::MENU_SCENE;
+                    GAME.SafeScore(score);
+                    score = 0;
+                    pendingScene = SceneIndex::MENU_SCENE; 
                 }
-
-                
                 SDL_Log("Ship hit!");
-                
             }
         }
     }

@@ -7,6 +7,8 @@ bullet::bullet(Vector2 startPos, float angle) : angle(angle) {
     float rad = (angle - 90.0f) * M_PI / 180.0f;
     velocity.setX(cos(rad) * speed);
     velocity.setY(sin(rad) * speed);
+
+    texture = IMG_LoadTexture(GAME.GetRenderer(), "assets/asteroids_spritesheet.png");
 }
 
 void bullet::Update(float delta) {
@@ -20,7 +22,8 @@ void bullet::Update(float delta) {
 }
 
 void bullet::Render() {
-    SDL_SetRenderDrawColor(GAME.GetRenderer(), 255, 255, 0, 255);
-    SDL_Rect rect = { (int)position.getX(), (int)position.getY(), 8, 8 };
-    SDL_RenderFillRect(GAME.GetRenderer(), &rect);
+    SDL_Rect src = { 32, 32, 8,8 };  
+    SDL_Rect dst = { (int)position.getX(), (int)position.getY(), 8, 8 };
+    SDL_Point center = { 32, 32 }; 
+    SDL_RenderCopyEx(GAME.GetRenderer(), texture, &src, &dst, angle, &center, SDL_FLIP_NONE);
 }
