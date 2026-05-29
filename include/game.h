@@ -15,10 +15,7 @@ public:
 
     public:
 
-
-    void ChangeScene(){
-
-    }
+    int LatestScore;
 
     static Game& Instance() {
         static Game instance;
@@ -33,6 +30,7 @@ public:
     void SafeScore(int score){
         std::ofstream file("assets/data/Highscores.csv");
 
+        LatestScore = score;
         std::string str;
         if (file.is_open())
         {

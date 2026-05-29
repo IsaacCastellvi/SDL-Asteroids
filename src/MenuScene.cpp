@@ -17,7 +17,7 @@ void MenuScene::Start(){
         SDL_Log("Font error: %s", TTF_GetError());
 }
 
-//use claude to debug most of it 
+//use claude to debug most of it
 void MenuScene::RenderText(const char* text, TTF_Font* font, SDL_Color color, int y) {
     if (!font) return;
 
@@ -42,6 +42,12 @@ void MenuScene::Render() {
 
     RenderText("ASTEROIDS", titleFont, yellow, 350);
     RenderText("Press ENTER to play", subFont,  white,  460);
+    //SDL_Log("Last score %d", GAME.LatestScore);
+    if (GAME.LatestScore > 0)
+    {
+        std::string text = "Your last score was: " + std::to_string(GAME.LatestScore);
+        RenderText(text.c_str(),subFont,  white,  600);
+    }    
 }
 
 void MenuScene::Clear() {
